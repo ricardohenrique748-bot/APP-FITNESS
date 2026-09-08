@@ -17,6 +17,7 @@ import { OnboardingView } from './onboarding/OnboardingView';
 import { LoginView } from './auth/LoginView';
 import { isSupabaseConfigured, supabase } from './services/supabaseClient';
 import { loadPlan, savePlan } from './services/planStorage';
+import { setupNativeAuthListener } from './services/nativeAuth';
 
 function getTodayIndex(): number {
   // JS getDay(): 0=Sunday..6=Saturday. Our week array is Monday..Sunday.
@@ -80,6 +81,7 @@ export default function App() {
       setIsAuthLoading(false);
       return;
     }
+    setupNativeAuthListener();
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setIsAuthLoading(false);

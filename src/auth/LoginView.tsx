@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../services/supabaseClient';
+import { getOAuthRedirectUrl } from '../services/nativeAuth';
 
 type Mode = 'signin' | 'signup';
 
@@ -44,7 +45,7 @@ export const LoginView: React.FC = () => {
     setError(null);
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin }
+      options: { redirectTo: getOAuthRedirectUrl() }
     });
     if (oauthError) {
       setError(traduzErro(oauthError.message));
