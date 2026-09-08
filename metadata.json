@@ -1,0 +1,6 @@
+{
+  "name": "GoFit — Recomposição Atlética",
+  "description": "Aplicativo de alta performance para recomposição corporal, nutrição calibrada TACO/IBGE, treinos de sobrecarga progressiva e monitoramento de evolução.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
