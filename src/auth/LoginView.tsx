@@ -10,6 +10,7 @@ export const LoginView: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [signupMessage, setSignupMessage] = useState<string | null>(null);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const isValid = email.trim().length > 3 && password.length >= 6;
 
@@ -36,6 +37,20 @@ export const LoginView: React.FC = () => {
     }
 
     setIsLoading(false);
+  };
+
+  const handleGoogleSignIn = async () => {
+    setIsGoogleLoading(true);
+    setError(null);
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin }
+    });
+    if (oauthError) {
+      setError(traduzErro(oauthError.message));
+      setIsGoogleLoading(false);
+    }
+    // On success the browser redirects to Google, so no further local state change here.
   };
 
   return (
@@ -113,6 +128,26 @@ export const LoginView: React.FC = () => {
           </button>
         </form>
 
+        <div className="flex items-center gap-3 my-5">
+          <div className="h-px flex-1 bg-[#282a2e]" />
+          <span className="text-[11px] text-[#8e9379] uppercase tracking-wider font-semibold">ou</span>
+          <div className="h-px flex-1 bg-[#282a2e]" />
+        </div>
+
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          disabled={isGoogleLoading}
+          className="w-full h-12 rounded-full bg-[#1e2024] border border-[#282a2e] hover:border-[#333539] hover:bg-[#282a2e] text-white font-bold text-[14px] flex items-center justify-center gap-2.5 active:scale-95 transition-all disabled:opacity-40 disabled:active:scale-100"
+        >
+          {isGoogleLoading ? (
+            <span className="w-5 h-5 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+          ) : (
+            <GoogleIcon />
+          )}
+          Continuar com Google
+        </button>
+
         <button
           type="button"
           onClick={() => {
@@ -137,6 +172,29 @@ export const LoginView: React.FC = () => {
   );
 };
 
+function GoogleIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+      <path
+        fill="#4285F4"
+        d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.87 2.7-6.62z"
+      />
+      <path
+        fill="#34A853"
+        d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.96v2.33A9 9 0 0 0 9 18z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.03l2.99-2.33z"
+      />
+      <path
+        fill="#EA4335"
+        d="M9 3.58c1.32 0 2.51.46 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.97l2.99 2.33C4.66 5.17 6.65 3.58 9 3.58z"
+      />
+    </svg>
+  );
+}
+
 function traduzErro(message: string): string {
   if (message.toLowerCase().includes('invalid login credentials')) {
     return 'E-mail ou senha incorretos.';
@@ -146,6 +204,9 @@ function traduzErro(message: string): string {
   }
   if (message.toLowerCase().includes('password should be at least')) {
     return 'A senha precisa ter pelo menos 6 caracteres.';
+  }
+  if (message.toLowerCase().includes('provider is not enabled') || message.toLowerCase().includes('unsupported provider')) {
+    return 'Login com Google ainda não foi habilitado no Supabase deste projeto.';
   }
   return message;
 }
