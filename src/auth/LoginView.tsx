@@ -55,20 +55,20 @@ export const LoginView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#0c0e12] text-[#e2e2e8] flex flex-col items-center justify-center selection:bg-[#c5f400] selection:text-[#161e00]">
-      <div className="w-full max-w-md min-h-screen flex flex-col justify-center relative bg-[#0c0e12] border-x border-[#282a2e]/40 shadow-2xl px-6 py-10">
+    <div className="min-h-screen w-full bg-surface-container-lowest text-on-surface flex flex-col items-center justify-center selection:bg-primary-fixed selection:text-on-primary-fixed">
+      <div className="w-full max-w-md min-h-screen flex flex-col justify-center relative bg-surface-container-lowest border-x border-surface-container-high/40 shadow-2xl px-6 py-10">
         <div className="flex flex-col items-center gap-3 mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-[#c5f400] flex items-center justify-center shadow-[0_0_24px_rgba(197,244,0,0.35)]">
+          <div className="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center shadow-[0_0_24px_rgba(197,244,0,0.35)]">
             <span
-              className="material-symbols-outlined text-[28px] text-[#161e00]"
+              className="material-symbols-outlined text-[28px] text-on-primary-fixed"
               style={{ fontVariationSettings: "'FILL' 1" }}
             >
               bolt
             </span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#c5f400]">GOFIT</span>
-            <h1 className="text-[24px] font-extrabold text-white tracking-tight leading-tight">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-primary-fixed">GOFIT</span>
+            <h1 className="text-[24px] font-extrabold text-on-surface tracking-tight leading-tight">
               {mode === 'signin' ? 'Entrar na sua conta' : 'Criar sua conta'}
             </h1>
           </div>
@@ -76,38 +76,38 @@ export const LoginView: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[12px] font-bold text-[#c2c6d2] uppercase tracking-wider">E-mail</label>
+            <label className="text-[12px] font-bold text-secondary uppercase tracking-wider">E-mail</label>
             <input
               type="email"
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="voce@exemplo.com"
-              className="h-12 rounded-xl bg-[#1e2024] border border-[#282a2e] px-4 text-[14px] text-white placeholder:text-[#5a5d63] focus:outline-none focus:border-[#c5f400] transition-colors"
+              className="h-12 rounded-xl bg-surface-container border border-surface-container-high px-4 text-[14px] text-on-surface placeholder:text-placeholder focus:outline-none focus:border-primary-fixed transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[12px] font-bold text-[#c2c6d2] uppercase tracking-wider">Senha</label>
+            <label className="text-[12px] font-bold text-secondary uppercase tracking-wider">Senha</label>
             <input
               type="password"
               autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Mínimo 6 caracteres"
-              className="h-12 rounded-xl bg-[#1e2024] border border-[#282a2e] px-4 text-[14px] text-white placeholder:text-[#5a5d63] focus:outline-none focus:border-[#c5f400] transition-colors"
+              className="h-12 rounded-xl bg-surface-container border border-surface-container-high px-4 text-[14px] text-on-surface placeholder:text-placeholder focus:outline-none focus:border-primary-fixed transition-colors"
             />
           </div>
 
           {error && (
-            <div className="flex items-start gap-2 p-3 rounded-xl bg-[#93000a]/20 border border-[#93000a]/50 text-[#ffdad6] text-[12px] leading-relaxed">
+            <div className="flex items-start gap-2 p-3 rounded-xl bg-error-container/20 border border-error-container/50 text-on-error-container text-[12px] leading-relaxed">
               <span className="material-symbols-outlined text-[18px] shrink-0">error</span>
               <span>{error}</span>
             </div>
           )}
 
           {signupMessage && (
-            <div className="flex items-start gap-2 p-3 rounded-xl bg-[#c5f400]/10 border border-[#c5f400]/40 text-[#c5f400] text-[12px] leading-relaxed">
+            <div className="flex items-start gap-2 p-3 rounded-xl bg-primary-fixed/10 border border-primary-fixed/40 text-primary-fixed text-[12px] leading-relaxed">
               <span className="material-symbols-outlined text-[18px] shrink-0">mail</span>
               <span>{signupMessage}</span>
             </div>
@@ -116,10 +116,10 @@ export const LoginView: React.FC = () => {
           <button
             type="submit"
             disabled={!isValid || isLoading}
-            className="w-full h-14 rounded-full bg-[#c5f400] text-[#161e00] font-extrabold text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-[0_0_24px_rgba(197,244,0,0.35)] disabled:opacity-40 disabled:active:scale-100 mt-2"
+            className="w-full h-14 rounded-full bg-primary-fixed text-on-primary-fixed font-extrabold text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-[0_0_24px_rgba(197,244,0,0.35)] disabled:opacity-40 disabled:active:scale-100 mt-2"
           >
             {isLoading ? (
-              <span className="w-5 h-5 rounded-full border-2 border-[#161e00]/30 border-t-[#161e00] animate-spin" />
+              <span className="w-5 h-5 rounded-full border-2 border-on-primary-fixed/30 border-t-on-primary-fixed animate-spin" />
             ) : (
               <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                 {mode === 'signin' ? 'login' : 'person_add'}
@@ -130,16 +130,16 @@ export const LoginView: React.FC = () => {
         </form>
 
         <div className="flex items-center gap-3 my-5">
-          <div className="h-px flex-1 bg-[#282a2e]" />
-          <span className="text-[11px] text-[#8e9379] uppercase tracking-wider font-semibold">ou</span>
-          <div className="h-px flex-1 bg-[#282a2e]" />
+          <div className="h-px flex-1 bg-surface-container-high" />
+          <span className="text-[11px] text-outline uppercase tracking-wider font-semibold">ou</span>
+          <div className="h-px flex-1 bg-surface-container-high" />
         </div>
 
         <button
           type="button"
           onClick={handleGoogleSignIn}
           disabled={isGoogleLoading}
-          className="w-full h-12 rounded-full bg-[#1e2024] border border-[#282a2e] hover:border-[#333539] hover:bg-[#282a2e] text-white font-bold text-[14px] flex items-center justify-center gap-2.5 active:scale-95 transition-all disabled:opacity-40 disabled:active:scale-100"
+          className="w-full h-12 rounded-full bg-surface-container border border-surface-container-high hover:border-surface-container-highest hover:bg-surface-container-high text-on-surface font-bold text-[14px] flex items-center justify-center gap-2.5 active:scale-95 transition-all disabled:opacity-40 disabled:active:scale-100"
         >
           {isGoogleLoading ? (
             <span className="w-5 h-5 rounded-full border-2 border-white/20 border-t-white animate-spin" />
@@ -156,15 +156,15 @@ export const LoginView: React.FC = () => {
             setError(null);
             setSignupMessage(null);
           }}
-          className="text-[13px] text-[#c2c6d2] hover:text-white text-center mt-6 transition-colors"
+          className="text-[13px] text-secondary hover:text-on-surface text-center mt-6 transition-colors"
         >
           {mode === 'signin' ? (
             <>
-              Não tem conta? <span className="text-[#c5f400] font-bold">Criar agora</span>
+              Não tem conta? <span className="text-primary-fixed font-bold">Criar agora</span>
             </>
           ) : (
             <>
-              Já tem conta? <span className="text-[#c5f400] font-bold">Entrar</span>
+              Já tem conta? <span className="text-primary-fixed font-bold">Entrar</span>
             </>
           )}
         </button>

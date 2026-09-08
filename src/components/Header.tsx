@@ -29,23 +29,23 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-[#0c0e12]/90 backdrop-blur-xl border-b border-[#282a2e]/60 shadow-[0_1px_8px_rgba(0,0,0,0.35)]">
+    <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-surface-container-lowest/90 backdrop-blur-xl border-b border-surface-container-high/60 shadow-[0_1px_8px_rgba(0,0,0,0.35)]">
       <div className="max-w-md mx-auto h-16 px-4 flex items-center justify-between">
         {/* Brand Mark & View Title */}
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-[#c5f400] flex items-center justify-center shrink-0 shadow-[0_0_16px_rgba(197,244,0,0.35)]">
+          <div className="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center shrink-0 shadow-[0_0_16px_rgba(197,244,0,0.35)]">
             <span
-              className="material-symbols-outlined text-[20px] text-[#161e00]"
+              className="material-symbols-outlined text-[20px] text-on-primary-fixed"
               style={{ fontVariationSettings: "'FILL' 1" }}
             >
               bolt
             </span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#c5f400] leading-none">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary-fixed leading-none">
               GOFIT
             </span>
-            <h1 className="text-[18px] font-bold tracking-tight text-[#e2e2e8] leading-tight mt-0.5">
+            <h1 className="text-[18px] font-bold tracking-tight text-on-surface leading-tight mt-0.5">
               {getTabTitle()}
             </h1>
           </div>
@@ -57,17 +57,17 @@ export const Header: React.FC<HeaderProps> = ({
             id="header-notification-btn"
             onClick={onOpenNotifications}
             aria-label="Notificações e Alertas"
-            className="relative w-10 h-10 flex items-center justify-center rounded-full bg-[#1e2024] text-[#c2c6d2] hover:text-white transition-colors active:scale-95"
+            className="relative w-10 h-10 flex items-center justify-center rounded-full bg-surface-container text-secondary hover:text-on-surface transition-colors active:scale-95"
           >
             <span className="material-symbols-outlined text-[20px]">notifications</span>
-            <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#c5f400] ring-2 ring-[#0c0e12] animate-pulse" />
+            <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-fixed ring-2 ring-surface-container-lowest animate-pulse" />
           </button>
 
           <button
             id="header-profile-btn"
             onClick={onOpenProfile}
             aria-label="Perfil do Atleta"
-            className="relative flex items-center justify-center p-0.5 rounded-full bg-[#1e2024] hover:ring-2 hover:ring-[#c5f400] transition-all active:scale-95"
+            className="relative flex items-center justify-center p-0.5 rounded-full bg-surface-container hover:ring-2 hover:ring-primary-fixed transition-all active:scale-95"
           >
             <img
               alt={`Perfil de ${profileName}`}

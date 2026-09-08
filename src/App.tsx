@@ -18,6 +18,7 @@ import { LoginView } from './auth/LoginView';
 import { isSupabaseConfigured, supabase } from './services/supabaseClient';
 import { loadPlan, savePlan } from './services/planStorage';
 import { setupNativeAuthListener } from './services/nativeAuth';
+import { useTheme } from './services/theme';
 
 function getTodayIndex(): number {
   // JS getDay(): 0=Sunday..6=Saturday. Our week array is Monday..Sunday.
@@ -27,13 +28,13 @@ function getTodayIndex(): number {
 
 function SetupNotice() {
   return (
-    <div className="min-h-screen w-full bg-[#0c0e12] text-[#e2e2e8] flex items-center justify-center p-6">
+    <div className="min-h-screen w-full bg-surface-container-lowest text-on-surface flex items-center justify-center p-6">
       <div className="max-w-sm flex flex-col items-center gap-3 text-center">
-        <span className="material-symbols-outlined text-[36px] text-[#c5f400]">settings</span>
-        <h1 className="text-[18px] font-bold text-white">Configuração pendente</h1>
-        <p className="text-[13px] text-[#c2c6d2] leading-relaxed">
-          Defina <code className="text-[#c5f400]">VITE_SUPABASE_URL</code> e{' '}
-          <code className="text-[#c5f400]">VITE_SUPABASE_ANON_KEY</code> no arquivo <code>.env.local</code> e reinicie
+        <span className="material-symbols-outlined text-[36px] text-primary-fixed">settings</span>
+        <h1 className="text-[18px] font-bold text-on-surface">Configuração pendente</h1>
+        <p className="text-[13px] text-secondary leading-relaxed">
+          Defina <code className="text-primary-fixed">VITE_SUPABASE_URL</code> e{' '}
+          <code className="text-primary-fixed">VITE_SUPABASE_ANON_KEY</code> no arquivo <code>.env.local</code> e reinicie
           o servidor para habilitar o login.
         </p>
       </div>
@@ -43,13 +44,14 @@ function SetupNotice() {
 
 function FullScreenLoader() {
   return (
-    <div className="min-h-screen w-full bg-[#0c0e12] flex items-center justify-center">
-      <div className="w-10 h-10 rounded-full border-4 border-[#282a2e] border-t-[#c5f400] animate-spin" />
+    <div className="min-h-screen w-full bg-surface-container-lowest flex items-center justify-center">
+      <div className="w-10 h-10 rounded-full border-4 border-surface-container-high border-t-primary-fixed animate-spin" />
     </div>
   );
 }
 
 export default function App() {
+  const [theme, setTheme] = useTheme();
   const [session, setSession] = useState<Session | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [plan, setPlan] = useState<GeneratedPlan | null>(null);
@@ -174,13 +176,13 @@ export default function App() {
 
   if (planError) {
     return (
-      <div className="min-h-screen w-full bg-[#0c0e12] flex items-center justify-center p-6">
+      <div className="min-h-screen w-full bg-surface-container-lowest flex items-center justify-center p-6">
         <div className="max-w-sm flex flex-col items-center gap-3 text-center">
-          <span className="material-symbols-outlined text-[36px] text-[#ffb4ab]">error</span>
-          <p className="text-[13px] text-[#c2c6d2] leading-relaxed">{planError}</p>
+          <span className="material-symbols-outlined text-[36px] text-error">error</span>
+          <p className="text-[13px] text-secondary leading-relaxed">{planError}</p>
           <button
             onClick={() => setPlanRetryToken((prev) => prev + 1)}
-            className="px-5 h-10 rounded-full bg-[#c5f400] text-[#161e00] font-bold text-[13px]"
+            className="px-5 h-10 rounded-full bg-primary-fixed text-on-primary-fixed font-bold text-[13px]"
           >
             Tentar novamente
           </button>
@@ -197,9 +199,9 @@ export default function App() {
   const todayWorkout = plan.week[todayIndex];
 
   return (
-    <div className="min-h-screen bg-[#0c0e12] text-[#e2e2e8] flex flex-col items-center justify-start selection:bg-[#c5f400] selection:text-[#161e00]">
+    <div className="min-h-screen bg-surface-container-lowest text-on-surface flex flex-col items-center justify-start selection:bg-primary-fixed selection:text-on-primary-fixed">
       {/* Mobile-centric constrained frame */}
-      <div className="w-full max-w-md min-h-screen flex flex-col relative bg-[#0c0e12] border-x border-[#282a2e]/40 shadow-2xl">
+      <div className="w-full max-w-md min-h-screen flex flex-col relative bg-surface-container-lowest border-x border-surface-container-high/40 shadow-2xl">
         {/* Fixed Header */}
         <Header
           currentTab={currentTab}
@@ -209,7 +211,7 @@ export default function App() {
         />
 
         {/* Scrollable Main Content Container */}
-        <main className="flex-1 flex flex-col relative w-full pt-20 pb-20">
+        <main className="flex-1 flex flex-col relative w-full pt-header pb-20">
           {currentTab === 'inicio' && (
             <HomeView
               plan={plan}
@@ -257,7 +259,7 @@ export default function App() {
         {/* Global Toast Notification */}
         {toastMessage && (
           <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 max-w-xs w-full px-4 animate-in slide-in-from-top-3 duration-200">
-            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-[#1e2024] border border-[#c5f400]/40 text-[#c5f400] text-[12px] font-bold shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-surface-container border border-primary-fixed/40 text-primary-fixed text-[12px] font-bold shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
               <span className="material-symbols-outlined text-[18px]">check_circle</span>
               <span className="truncate">{toastMessage}</span>
             </div>
@@ -273,6 +275,8 @@ export default function App() {
         <ProfileModal
           isOpen={isProfileOpen}
           plan={plan}
+          theme={theme}
+          onThemeChange={setTheme}
           onClose={() => setIsProfileOpen(false)}
           onRegenerateRequest={handleRegenerateRequest}
           onSignOut={handleSignOut}

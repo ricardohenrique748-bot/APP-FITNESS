@@ -29,18 +29,18 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full max-w-md bg-[#1e2024] border border-[#282a2e] rounded-2xl p-5 shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-y-auto no-scrollbar">
-        <div className="flex items-center justify-between border-b border-[#282a2e] pb-3">
+      <div className="w-full max-w-md bg-surface-container border border-surface-container-high rounded-2xl p-5 shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-y-auto no-scrollbar">
+        <div className="flex items-center justify-between border-b border-surface-container-high pb-3">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-[#c5f400] text-[22px]">photo_camera</span>
+            <span className="material-symbols-outlined text-primary-fixed text-[22px]">photo_camera</span>
             <div>
-              <h3 className="text-[17px] font-bold text-white leading-tight">Novo Check-in Semanal</h3>
-              <p className="text-[11px] text-[#c2c6d2]">Registro de peso em jejum, circunferências e fotos</p>
+              <h3 className="text-[17px] font-bold text-on-surface leading-tight">Novo Check-in Semanal</h3>
+              <p className="text-[11px] text-secondary">Registro de peso em jejum, circunferências e fotos</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#282a2e] flex items-center justify-center text-[#c2c6d2] hover:text-white transition-colors"
+            className="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-secondary hover:text-on-surface transition-colors"
           >
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>
@@ -48,11 +48,11 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
 
         {submitted ? (
           <div className="py-10 flex flex-col items-center justify-center text-center gap-3">
-            <div className="w-14 h-14 rounded-full bg-[#c5f400] flex items-center justify-center text-[#161e00] shadow-[0_0_24px_#c5f400]">
+            <div className="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed shadow-[0_0_24px_#c5f400]">
               <span className="material-symbols-outlined text-[32px] font-bold">check</span>
             </div>
-            <h4 className="text-[18px] font-bold text-white">Check-in Processado!</h4>
-            <p className="text-[13px] text-[#c2c6d2] max-w-xs">
+            <h4 className="text-[18px] font-bold text-on-surface">Check-in Processado!</h4>
+            <p className="text-[13px] text-secondary max-w-xs">
               Algoritmo calibrado. Déficit de -20% validado para os próximos 7 dias.
             </p>
           </div>
@@ -60,45 +60,45 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {/* Weight & Waist inputs */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1 bg-[#1a1c20] p-3 rounded-xl border border-[#282a2e]">
-                <label className="text-[11px] text-[#c2c6d2] font-semibold">Peso Hoje (kg)</label>
+              <div className="flex flex-col gap-1 bg-surface-container-low p-3 rounded-xl border border-surface-container-high">
+                <label className="text-[11px] text-secondary font-semibold">Peso Hoje (kg)</label>
                 <div className="flex items-center gap-1.5">
                   <input
                     type="number"
                     step="0.1"
                     value={weight}
                     onChange={(e) => setWeight(Number(e.target.value))}
-                    className="w-full bg-transparent text-[20px] font-bold text-white focus:outline-none tabular-nums"
+                    className="w-full bg-transparent text-[20px] font-bold text-on-surface focus:outline-none tabular-nums"
                   />
-                  <span className="text-[12px] text-[#8e9379]">kg</span>
+                  <span className="text-[12px] text-outline">kg</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1 bg-[#1a1c20] p-3 rounded-xl border border-[#282a2e]">
-                <label className="text-[11px] text-[#c2c6d2] font-semibold">Cintura Umbilical</label>
+              <div className="flex flex-col gap-1 bg-surface-container-low p-3 rounded-xl border border-surface-container-high">
+                <label className="text-[11px] text-secondary font-semibold">Cintura Umbilical</label>
                 <div className="flex items-center gap-1.5">
                   <input
                     type="number"
                     step="0.5"
                     value={waist}
                     onChange={(e) => setWaist(Number(e.target.value))}
-                    className="w-full bg-transparent text-[20px] font-bold text-white focus:outline-none tabular-nums"
+                    className="w-full bg-transparent text-[20px] font-bold text-on-surface focus:outline-none tabular-nums"
                   />
-                  <span className="text-[12px] text-[#8e9379]">cm</span>
+                  <span className="text-[12px] text-outline">cm</span>
                 </div>
               </div>
             </div>
 
             {/* Subjective Biofeedback ratings */}
-            <div className="flex flex-col gap-2 bg-[#1a1c20] p-3 rounded-xl border border-[#282a2e]">
-              <span className="text-[12px] font-bold text-white flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-[#c5f400] text-[16px]">monitor_heart</span>
+            <div className="flex flex-col gap-2 bg-surface-container-low p-3 rounded-xl border border-surface-container-high">
+              <span className="text-[12px] font-bold text-on-surface flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-primary-fixed text-[16px]">monitor_heart</span>
                 Biofeedback Subjetivo
               </span>
 
               {/* Hunger */}
               <div className="flex items-center justify-between text-[12px] pt-1">
-                <span className="text-[#c2c6d2]">Fome na semana:</span>
+                <span className="text-secondary">Fome na semana:</span>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((lvl) => (
                     <button
@@ -106,7 +106,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
                       key={lvl}
                       onClick={() => setHunger(lvl)}
                       className={`w-6 h-6 rounded text-[11px] font-bold transition-all ${
-                        hunger >= lvl ? 'bg-[#c5f400] text-[#161e00]' : 'bg-[#282a2e] text-[#c2c6d2]'
+                        hunger >= lvl ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-secondary'
                       }`}
                     >
                       {lvl}
@@ -117,7 +117,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
 
               {/* Energy */}
               <div className="flex items-center justify-between text-[12px] pt-1">
-                <span className="text-[#c2c6d2]">Disposição nos treinos:</span>
+                <span className="text-secondary">Disposição nos treinos:</span>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((lvl) => (
                     <button
@@ -125,7 +125,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
                       key={lvl}
                       onClick={() => setEnergy(lvl)}
                       className={`w-6 h-6 rounded text-[11px] font-bold transition-all ${
-                        energy >= lvl ? 'bg-[#c5f400] text-[#161e00]' : 'bg-[#282a2e] text-[#c2c6d2]'
+                        energy >= lvl ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-secondary'
                       }`}
                     >
                       {lvl}
@@ -136,7 +136,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
 
               {/* Sleep */}
               <div className="flex items-center justify-between text-[12px] pt-1">
-                <span className="text-[#c2c6d2]">Qualidade do sono:</span>
+                <span className="text-secondary">Qualidade do sono:</span>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((lvl) => (
                     <button
@@ -144,7 +144,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
                       key={lvl}
                       onClick={() => setSleep(lvl)}
                       className={`w-6 h-6 rounded text-[11px] font-bold transition-all ${
-                        sleep >= lvl ? 'bg-[#c5f400] text-[#161e00]' : 'bg-[#282a2e] text-[#c2c6d2]'
+                        sleep >= lvl ? 'bg-primary-fixed text-on-primary-fixed' : 'bg-surface-container-high text-secondary'
                       }`}
                     >
                       {lvl}
@@ -159,8 +159,8 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
               onClick={() => setPhotoSelected(!photoSelected)}
               className={`p-4 rounded-xl border-2 border-dashed flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors ${
                 photoSelected
-                  ? 'border-[#c5f400] bg-[#c5f400]/10 text-[#c5f400]'
-                  : 'border-[#444933] bg-[#1a1c20] hover:border-[#c5f400] text-[#c2c6d2]'
+                  ? 'border-primary-fixed bg-primary-fixed/10 text-primary-fixed'
+                  : 'border-outline-variant bg-surface-container-low hover:border-primary-fixed text-secondary'
               }`}
             >
               <span className="material-symbols-outlined text-[28px]">
@@ -178,7 +178,7 @@ export const CheckInModal: React.FC<CheckInModalProps> = ({ isOpen, onClose, onS
 
             <button
               type="submit"
-              className="w-full h-12 rounded-full bg-[#c5f400] text-[#161e00] font-bold text-[14px] hover:bg-[#acd600] transition-transform active:scale-98 shadow-md"
+              className="w-full h-12 rounded-full bg-primary-fixed text-on-primary-fixed font-bold text-[14px] hover:bg-primary-fixed-dim transition-transform active:scale-98 shadow-md"
             >
               Confirmar Check-in da Semana
             </button>

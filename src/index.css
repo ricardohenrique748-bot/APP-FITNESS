@@ -15,6 +15,7 @@
   --color-surface-container-high: #282a2e;
   --color-surface-container-highest: #333539;
   --color-surface: #111317;
+  --color-surface-dim: #14161b;
 
   --color-on-surface: #e2e2e8;
   --color-on-surface-variant: #c4c9ac;
@@ -32,10 +33,39 @@
 
   --color-outline: #8e9379;
   --color-outline-variant: #444933;
+  --color-placeholder: #5a5d63;
 
   --color-error: #ffb4ab;
   --color-error-container: #93000a;
   --color-on-error-container: #ffdad6;
+}
+
+/*
+ * Light theme: the app is dark-first (values above are the defaults), this
+ * block re-points the same custom properties when `.light` is set on <html>.
+ * Brand/accent hues (primary lime, tertiary blue, error red) stay identical
+ * across both themes — only neutrals (surfaces/text/outlines) invert.
+ */
+:root.light {
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f5ef;
+  --color-surface-container: #eceee6;
+  --color-surface-container-high: #e2e4da;
+  --color-surface-container-highest: #d5d8cb;
+  --color-surface: #f8f9f4;
+  --color-surface-dim: #e7e9e0;
+
+  --color-on-surface: #1b1c17;
+  --color-on-surface-variant: #44483a;
+
+  --color-secondary: #53574a;
+  --color-secondary-container: #dde0d3;
+  --color-secondary-fixed: #424751;
+  --color-secondary-fixed-dim: #53574a;
+
+  --color-outline: #6f7460;
+  --color-outline-variant: #c7cbb8;
+  --color-placeholder: #8b8f7f;
 }
 
 @layer base {
@@ -43,18 +73,37 @@
     width: 100%;
     min-height: 100%;
     font-family: var(--font-sans);
-    background-color: #0c0e12;
-    color: #e2e2e8;
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
     overscroll-behavior-y: none;
     -webkit-tap-highlight-color: transparent;
   }
 
+  /*
+   * Capacitor's Android SystemBars plugin (bundled since @capacitor/android 8)
+   * drives edge-to-edge insets by writing `--safe-area-inset-*` custom
+   * properties onto <html> via JS, NOT the standard env(safe-area-inset-*).
+   * On many WebView versions it also zeroes out the real inset before the
+   * page ever sees it, so env() alone silently resolves to 0px and content
+   * slides under the status bar / gesture bar. Prefer the Capacitor variable
+   * and fall back to env() (iOS, browser) and finally 0px.
+   */
+  :root {
+    --safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+    --safe-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  }
+
   .pb-safe {
-    padding-bottom: max(env(safe-area-inset-bottom, 0px), 0.75rem);
+    padding-bottom: max(var(--safe-bottom), 0.75rem);
   }
 
   .pt-safe {
-    padding-top: env(safe-area-inset-top, 0px);
+    padding-top: var(--safe-top);
+  }
+
+  /* Fixed header = safe-area inset + its own 4rem (h-16) content height, plus a little breathing room */
+  .pt-header {
+    padding-top: calc(var(--safe-top) + 4.5rem);
   }
 }
 

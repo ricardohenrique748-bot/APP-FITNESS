@@ -66,14 +66,14 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#0c0e12] text-[#e2e2e8] flex flex-col items-center justify-start selection:bg-[#c5f400] selection:text-[#161e00]">
-      <div className="w-full max-w-md min-h-screen flex flex-col relative bg-[#0c0e12] border-x border-[#282a2e]/40 shadow-2xl px-5 pt-10 pb-10">
+    <div className="min-h-screen w-full bg-surface-container-lowest text-on-surface flex flex-col items-center justify-start selection:bg-primary-fixed selection:text-on-primary-fixed">
+      <div className="w-full max-w-md min-h-screen flex flex-col relative bg-surface-container-lowest border-x border-surface-container-high/40 shadow-2xl px-5 pt-10 pb-10">
         <div className="flex flex-col gap-1.5 mb-6">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-[#c5f400]">GOFIT</span>
-          <h1 className="text-[26px] font-extrabold text-white tracking-tight leading-tight">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-primary-fixed">GOFIT</span>
+          <h1 className="text-[26px] font-extrabold text-on-surface tracking-tight leading-tight">
             Vamos montar seu plano
           </h1>
-          <p className="text-[13px] text-[#c2c6d2] leading-relaxed">
+          <p className="text-[13px] text-secondary leading-relaxed">
             Conte seus dados atuais e seu objetivo. A IA vai gerar seu calendário de treinos da semana e sua dieta
             personalizada.
           </p>
@@ -81,9 +81,9 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
 
         {isLoading ? (
           <div className="flex-1 flex flex-col items-center justify-center gap-4 py-16">
-            <div className="w-14 h-14 rounded-full border-4 border-[#282a2e] border-t-[#c5f400] animate-spin" />
-            <p className="text-[14px] text-white font-semibold text-center">Montando seu plano...</p>
-            <p className="text-[12px] text-[#8e9379] text-center max-w-xs">
+            <div className="w-14 h-14 rounded-full border-4 border-surface-container-high border-t-primary-fixed animate-spin" />
+            <p className="text-[14px] text-on-surface font-semibold text-center">Montando seu plano...</p>
+            <p className="text-[12px] text-outline text-center max-w-xs">
               Calculando metabolismo, macros, treino semanal e cardápio. Isso pode levar alguns segundos.
             </p>
           </div>
@@ -91,18 +91,18 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Nome */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-bold text-[#c2c6d2] uppercase tracking-wider">Nome</label>
+              <label className="text-[12px] font-bold text-secondary uppercase tracking-wider">Nome</label>
               <input
                 value={form.name}
                 onChange={(e) => update('name', e.target.value)}
                 placeholder="Como podemos te chamar?"
-                className="h-12 rounded-xl bg-[#1e2024] border border-[#282a2e] px-4 text-[14px] text-white placeholder:text-[#5a5d63] focus:outline-none focus:border-[#c5f400] transition-colors"
+                className="h-12 rounded-xl bg-surface-container border border-surface-container-high px-4 text-[14px] text-on-surface placeholder:text-placeholder focus:outline-none focus:border-primary-fixed transition-colors"
               />
             </div>
 
             {/* Sexo */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-bold text-[#c2c6d2] uppercase tracking-wider">Sexo biológico</label>
+              <label className="text-[12px] font-bold text-secondary uppercase tracking-wider">Sexo biológico</label>
               <div className="grid grid-cols-2 gap-2">
                 {(['masculino', 'feminino'] as Sex[]).map((sex) => (
                   <button
@@ -111,8 +111,8 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
                     onClick={() => update('sex', sex)}
                     className={`h-11 rounded-xl text-[13px] font-bold capitalize transition-all border ${
                       form.sex === sex
-                        ? 'bg-[#c5f400] text-[#161e00] border-[#c5f400]'
-                        : 'bg-[#1e2024] text-[#c2c6d2] border-[#282a2e] hover:text-white'
+                        ? 'bg-primary-fixed text-on-primary-fixed border-primary-fixed'
+                        : 'bg-surface-container text-secondary border-surface-container-high hover:text-on-surface'
                     }`}
                   >
                     {sex}
@@ -124,44 +124,44 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
             {/* Idade, Peso, Altura */}
             <div className="grid grid-cols-3 gap-2">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold text-[#c2c6d2] uppercase tracking-wider">Idade</label>
+                <label className="text-[11px] font-bold text-secondary uppercase tracking-wider">Idade</label>
                 <input
                   type="number"
                   value={form.age}
                   onChange={(e) => update('age', Number(e.target.value))}
-                  className="h-12 rounded-xl bg-[#1e2024] border border-[#282a2e] px-2.5 text-[14px] text-white text-center focus:outline-none focus:border-[#c5f400]"
+                  className="h-12 rounded-xl bg-surface-container border border-surface-container-high px-2.5 text-[14px] text-on-surface text-center focus:outline-none focus:border-primary-fixed"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold text-[#c2c6d2] uppercase tracking-wider">Peso (kg)</label>
+                <label className="text-[11px] font-bold text-secondary uppercase tracking-wider">Peso (kg)</label>
                 <input
                   type="number"
                   step="0.1"
                   value={form.weightKg}
                   onChange={(e) => update('weightKg', Number(e.target.value))}
-                  className="h-12 rounded-xl bg-[#1e2024] border border-[#282a2e] px-2.5 text-[14px] text-white text-center focus:outline-none focus:border-[#c5f400]"
+                  className="h-12 rounded-xl bg-surface-container border border-surface-container-high px-2.5 text-[14px] text-on-surface text-center focus:outline-none focus:border-primary-fixed"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold text-[#c2c6d2] uppercase tracking-wider">Altura (cm)</label>
+                <label className="text-[11px] font-bold text-secondary uppercase tracking-wider">Altura (cm)</label>
                 <input
                   type="number"
                   value={form.heightCm}
                   onChange={(e) => update('heightCm', Number(e.target.value))}
-                  className="h-12 rounded-xl bg-[#1e2024] border border-[#282a2e] px-2.5 text-[14px] text-white text-center focus:outline-none focus:border-[#c5f400]"
+                  className="h-12 rounded-xl bg-surface-container border border-surface-container-high px-2.5 text-[14px] text-on-surface text-center focus:outline-none focus:border-primary-fixed"
                 />
               </div>
             </div>
 
             {/* Nível de atividade */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-bold text-[#c2c6d2] uppercase tracking-wider">
+              <label className="text-[12px] font-bold text-secondary uppercase tracking-wider">
                 Nível de atividade atual
               </label>
               <select
                 value={form.activityLevel}
                 onChange={(e) => update('activityLevel', e.target.value as ActivityLevel)}
-                className="h-12 rounded-xl bg-[#1e2024] border border-[#282a2e] px-3 text-[13px] text-white focus:outline-none focus:border-[#c5f400]"
+                className="h-12 rounded-xl bg-surface-container border border-surface-container-high px-3 text-[13px] text-on-surface focus:outline-none focus:border-primary-fixed"
               >
                 {ACTIVITY_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -173,7 +173,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
 
             {/* Objetivo */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-bold text-[#c2c6d2] uppercase tracking-wider">Objetivo</label>
+              <label className="text-[12px] font-bold text-secondary uppercase tracking-wider">Objetivo</label>
               <div className="grid grid-cols-3 gap-2">
                 {GOAL_OPTIONS.map((opt) => (
                   <button
@@ -182,8 +182,8 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
                     onClick={() => update('goal', opt.value)}
                     className={`flex flex-col items-center gap-1.5 py-3 rounded-xl text-[11px] font-bold text-center transition-all border ${
                       form.goal === opt.value
-                        ? 'bg-[#c5f400] text-[#161e00] border-[#c5f400]'
-                        : 'bg-[#1e2024] text-[#c2c6d2] border-[#282a2e] hover:text-white'
+                        ? 'bg-primary-fixed text-on-primary-fixed border-primary-fixed'
+                        : 'bg-surface-container text-secondary border-surface-container-high hover:text-on-surface'
                     }`}
                   >
                     <span className="material-symbols-outlined text-[22px]">{opt.icon}</span>
@@ -195,7 +195,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
 
             {/* Restrições */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-bold text-[#c2c6d2] uppercase tracking-wider">
+              <label className="text-[12px] font-bold text-secondary uppercase tracking-wider">
                 Restrições alimentares (opcional)
               </label>
               <textarea
@@ -203,12 +203,12 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
                 onChange={(e) => update('restrictions', e.target.value)}
                 placeholder="Ex: intolerância à lactose, vegetariano, sem frutos do mar..."
                 rows={2}
-                className="rounded-xl bg-[#1e2024] border border-[#282a2e] px-4 py-3 text-[13px] text-white placeholder:text-[#5a5d63] focus:outline-none focus:border-[#c5f400] resize-none"
+                className="rounded-xl bg-surface-container border border-surface-container-high px-4 py-3 text-[13px] text-on-surface placeholder:text-placeholder focus:outline-none focus:border-primary-fixed resize-none"
               />
             </div>
 
             {error && (
-              <div className="flex items-start gap-2 p-3 rounded-xl bg-[#93000a]/20 border border-[#93000a]/50 text-[#ffdad6] text-[12px] leading-relaxed">
+              <div className="flex items-start gap-2 p-3 rounded-xl bg-error-container/20 border border-error-container/50 text-on-error-container text-[12px] leading-relaxed">
                 <span className="material-symbols-outlined text-[18px] shrink-0">error</span>
                 <span>{error}</span>
               </div>
@@ -217,7 +217,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({ initialValues, o
             <button
               type="submit"
               disabled={!isValid || isLoading}
-              className="w-full h-14 rounded-full bg-[#c5f400] text-[#161e00] font-extrabold text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-[0_0_24px_rgba(197,244,0,0.35)] disabled:opacity-40 disabled:active:scale-100"
+              className="w-full h-14 rounded-full bg-primary-fixed text-on-primary-fixed font-extrabold text-[15px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-[0_0_24px_rgba(197,244,0,0.35)] disabled:opacity-40 disabled:active:scale-100"
             >
               <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                 auto_awesome
