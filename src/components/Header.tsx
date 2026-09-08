@@ -5,6 +5,7 @@ import { BRAND_ASSETS } from '../data/mockData';
 interface HeaderProps {
   currentTab: TabType;
   profileName: string;
+  avatarUrl?: string | null;
   onOpenNotifications: () => void;
   onOpenProfile: () => void;
 }
@@ -12,6 +13,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   currentTab,
   profileName,
+  avatarUrl,
   onOpenNotifications,
   onOpenProfile
 }) => {
@@ -72,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({
             <img
               alt={`Perfil de ${profileName}`}
               className="w-8 h-8 rounded-full object-cover"
-              src={BRAND_ASSETS.avatar}
+              src={avatarUrl || BRAND_ASSETS.avatar}
             />
           </button>
         </div>

@@ -6,6 +6,7 @@ import { ThemeMode } from '../services/theme';
 interface ProfileModalProps {
   isOpen: boolean;
   plan: GeneratedPlan;
+  avatarUrl?: string | null;
   theme: ThemeMode;
   onThemeChange: (theme: ThemeMode) => void;
   onClose: () => void;
@@ -22,6 +23,7 @@ const GOAL_LABEL: Record<GeneratedPlan['profile']['goal'], string> = {
 export const ProfileModal: React.FC<ProfileModalProps> = ({
   isOpen,
   plan,
+  avatarUrl,
   theme,
   onThemeChange,
   onClose,
@@ -41,7 +43,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
             <img
               alt={plan.profile.name}
               className="w-12 h-12 rounded-full object-cover ring-2 ring-primary-fixed"
-              src={BRAND_ASSETS.avatar}
+              src={avatarUrl || BRAND_ASSETS.avatar}
             />
             <div className="flex flex-col">
               <h3 className="text-[18px] font-bold text-on-surface">{plan.profile.name}</h3>

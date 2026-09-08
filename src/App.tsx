@@ -19,6 +19,7 @@ import { isSupabaseConfigured, supabase } from './services/supabaseClient';
 import { loadPlan, savePlan } from './services/planStorage';
 import { setupNativeAuthListener } from './services/nativeAuth';
 import { useTheme } from './services/theme';
+import { onWaterReminderDrink, useWaterReminderSettings } from './services/waterReminders';
 
 function getTodayIndex(): number {
   // JS getDay(): 0=Sunday..6=Saturday. Our week array is Monday..Sunday.
@@ -52,6 +53,7 @@ function FullScreenLoader() {
 
 export default function App() {
   const [theme, setTheme] = useTheme();
+  const [waterReminder, setWaterReminder] = useWaterReminderSettings();
   const [session, setSession] = useState<Session | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [plan, setPlan] = useState<GeneratedPlan | null>(null);
@@ -123,6 +125,12 @@ export default function App() {
     setWaterLevel((prev) => Math.min(6.0, Number((prev + 0.25).toFixed(2))));
     triggerToast('+250ml de água registrado (Hidratação atualizada)');
   };
+
+  // Credit water intake when the user taps "Já bebi" on the reminder notification.
+  useEffect(() => {
+    const removeListener = onWaterReminderDrink(() => handleAddWater());
+    return removeListener;
+  }, []);
 
   const handleSaveCheckIn = (weight: number, waist: number) => {
     setCurrentWeight(weight);
@@ -197,6 +205,7 @@ export default function App() {
 
   const todayIndex = getTodayIndex();
   const todayWorkout = plan.week[todayIndex];
+  const avatarUrl = session.user.user_metadata?.avatar_url || session.user.user_metadata?.picture || null;
 
   return (
     <div className="min-h-screen bg-surface-container-lowest text-on-surface flex flex-col items-center justify-start selection:bg-primary-fixed selection:text-on-primary-fixed">
@@ -206,6 +215,7 @@ export default function App() {
         <Header
           currentTab={currentTab}
           profileName={plan.profile.name}
+          avatarUrl={avatarUrl}
           onOpenNotifications={() => setIsNotificationsOpen(true)}
           onOpenProfile={() => setIsProfileOpen(true)}
         />
@@ -270,11 +280,14 @@ export default function App() {
         <NotificationModal
           isOpen={isNotificationsOpen}
           onClose={() => setIsNotificationsOpen(false)}
+          waterReminder={waterReminder}
+          onChangeWaterReminder={setWaterReminder}
         />
 
         <ProfileModal
           isOpen={isProfileOpen}
           plan={plan}
+          avatarUrl={avatarUrl}
           theme={theme}
           onThemeChange={setTheme}
           onClose={() => setIsProfileOpen(false)}

@@ -1,11 +1,21 @@
 import React from 'react';
+import { WaterReminderSettings } from '../services/waterReminders';
 
 interface NotificationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  waterReminder: WaterReminderSettings;
+  onChangeWaterReminder: (settings: WaterReminderSettings) => void;
 }
 
-export const NotificationModal: React.FC<NotificationModalProps> = ({ isOpen, onClose }) => {
+const INTERVAL_OPTIONS: WaterReminderSettings['intervalHours'][] = [1, 2, 3];
+
+export const NotificationModal: React.FC<NotificationModalProps> = ({
+  isOpen,
+  onClose,
+  waterReminder,
+  onChangeWaterReminder
+}) => {
   if (!isOpen) return null;
 
   const notifications = [
